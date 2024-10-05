@@ -2,8 +2,6 @@
 #define RUN_HH
 
 #include "G4Run.hh"
-#include <vector>
-#include <map>
 #include <tuple>
 
 class Run : public G4Run
@@ -15,15 +13,22 @@ public:
     virtual void RecordEvent(const G4Event* evt) override;
     virtual void Merge(const G4Run* aRun) override;
 
-    std::vector<std::vector<int>>& GetEventDataH1() { return eventDataH1; }
-    const std::vector<std::vector<int>>& GetEventDataH1() const { return eventDataH1; }
-
     void StoreKineticEnergy(int particleIndex, G4double kineticEnergy);
+    void StorePos(int x, int y);
 
-    std::vector<std::vector<int>> tempKineticEnergyData = std::vector<std::vector<int>>(5, std::vector<int>(100, 0));
+     // Getter functions
+    const int (*GetEventDataH1() const)[300] { return eventDataH1; }
+    const int (*GetEventDataH2() const)[100] { return eventDataH2; }
+    
+    int tempKineticEnergyData[7][300]; // Updated to array
+    int tempPos[100][100]; // Existing array
 
 private:
-    std::vector<std::vector<int>> eventDataH1 = std::vector<std::vector<int>>(5, std::vector<int>(100, 0));
+    int eventDataH1[7][300]; // Updated to array
+    int eventDataH2[100][100]; // New histogram array
+
+    G4int nbins = 300;
+    
 };
 
 #endif // RUN_HH

@@ -125,7 +125,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     checkOverlaps);          // checking overlaps
 
   G4ThreeVector pos3 = G4ThreeVector(0,0,chamberSize/2+0.6*cm+ECALSize/2);
-  auto ECALS = new G4Tubs("ECAL", 0., chamberRadius, ECALSize/2, 0. * deg, 360. * deg);
+  //auto ECALS = new G4Tubs("ECAL", 0., chamberRadius, ECALSize/2, 0. * deg, 360. * deg);
+  auto ECALS = new G4Box("ECAL",                           // its name
+    0.5 * 12*cm, 0.5 * 12*cm, 0.5 * ECALSize);  // its size
   auto logicECAL = new G4LogicalVolume(ECALS,  // its solid
     chamber_mat,                                     // its material
     "ECAL");                                 // its name
